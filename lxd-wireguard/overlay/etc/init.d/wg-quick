@@ -1,0 +1,20 @@
+#!/sbin/openrc-run
+
+name="WireGuard"
+
+depend() {
+	need net
+	use dns
+}
+
+start() {
+	ebegin "Starting WireGuard for wg0"
+	wg-quick up "wg0"
+	eend $? "Failed to start $description for wg0"
+}
+
+stop() {
+	ebegin "Stopping Wireguard for wg0"
+	wg-quick down "$CONF"
+	eend $? "Failed to stop $description for wg0"
+}
